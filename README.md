@@ -10,6 +10,7 @@ An application that randomly generates a password to meet certain criteria
 
 ## Website
 https://akman47.github.io/password-generator
+![password generator website with a generate password button](./assets/images/password-generator.png)
 
 ## Criteria
 * GIVEN I need a new, secure password

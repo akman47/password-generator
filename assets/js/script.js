@@ -18,7 +18,7 @@ var askLength = function () {
          window.alert("Password must be less than 128 characters. Please enter a valid number.");
          return askLength();
     }
-    
+
     return length;
 }
 
@@ -119,14 +119,72 @@ var generatePassword = function() {
             password += special.charAt(Math.floor(Math.random()*n));
         }
     }
-    // lower case and upper case
+    // lower case and upper case only
     else if (lowerCase && upperCase && !numeric && !specialChar) {
         for (i = 0, n = lowerUpper.length; i < length; i++) {
             password += lowerUpper.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // lower case and numeric only
+    else if (lowerCase && !upperCase && numeric && !specialChar) {
+        for (i = 0, n = lowNum.length; i < length; i++) {
+            password += lowNum.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // lower case and special characters only
+    else if (lowerCase && !upperCase && !numeric && specialChar) {
+        for (i = 0, n = lowSpec.length; i < length; i++) {
+            password += lowSpec.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // upper case and numeric only
+    else if (!lowerCase && upperCase && numeric && !specialChar) {
+        for (i = 0, n = upNum.length; i < length; i++) {
+            password += upNum.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // upper case and special characters only
+    else if (!lowerCase && upperCase && !numeric && specialChar) {
+        for (i = 0, n = upSpec.length; i < length; i++) {
+            password += upSpec.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // numeric and special characters only
+    else if (!lowerCase && !upperCase && numeric && specialChar) {
+        for (i = 0, n = numSpec.length; i < length; i++) {
+            password += numSpec.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // lower case, upper case, and numbers
+    else if (lowerCase && upperCase && numeric && !specialChar) {
+        for (i = 0, n = lowUpNum.length; i < length; i++) {
+            password += lowUpNum.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // lower case, upper case, and special characters
+    else if (lowerCase && upperCase && !numeric && specialChar) {
+        for (i = 0, n = lowUpSpec.length; i < length; i++) {
+            password += lowUpSpec.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // upper case, numbers, and special characters
+    else if (!lowerCase && upperCase && numeric && specialChar) {
+        for (i = 0, n = upNumSpec.length; i < length; i++) {
+            password += upNumSpec.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // lower case, number, and special characters
+    else if (lowerCase && !upperCase && numeric && specialChar) {
+        for (i = 0, n = lowNumSpec.length; i < length; i++) {
+            password += lowNumSpec.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    else if (lowerCase && upperCase && numeric && specialChar) {
+        for (i = 0, n = all.length; i < length; i++) {
+            password += all.charAt(Math.floor(Math.random()*n));
             console.log(password);
         }
     }
-
 
     // reset for next password
     lowerCase = false;
