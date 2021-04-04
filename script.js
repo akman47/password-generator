@@ -1,32 +1,31 @@
-// Assignment code here
+// welcome message
 window.alert("Welcome to Password Generator! Let's set your password criteria.");
 
-// Setting password criteria
-
-
-
-// Prompt for password length
+// prompt for password length
 var askLength = function () {
-    var length = window.prompt("How many characters are in the password? (min 8, max 128)");
+    var length = window.prompt("How many characters would you like the password to contain?");
+    // checks to make sure answer is a number
     if (isNaN(length)) {
-        window.alert("Your answer is not a number. Please enter a number between 8 to 128");
+        window.alert("Your answer is not a number. Please enter a number.");
         askLength(); 
     }
-// Choose length of at least 8 characters and no more than 128 characters
-    if (length < 8 || length > 128) {
-        window.alert("You need to provide a length between 8 and 128 characters. Please enter a valid number.");
+    // choose length of at least 8 characters and no more than 128 characters
+    if (length < 8) {
+        window.alert("Password must be at least 8 characters. Please enter a valid number.");
         return askLength();
     }
-    console.log(length);
+    else if (length > 128) {
+         window.alert("Password must be less than 128 characters. Please enter a valid number.");
+         return askLength();
+    }
+    
     return length;
 }
 
-askLength();
-
-var lowerCase;
-var upperCase;
-var numeric;
-var specialChar;
+var lowerCase = false;
+var upperCase = false;
+var numeric = false;
+var specialChar = false;
 
 // Prompt for which character types to include
 // Choose lowercase, uppercase, numeric, and/or special characters
@@ -57,7 +56,7 @@ var charType = function() {
             }
             break;
         case 4: 
-            special = true;
+            specialChar = true;
             charConfirm = window.confirm("Your password will include special characters. Would you like to add another character type?");
             if (charConfirm) {
                 charType();
@@ -70,11 +69,74 @@ var charType = function() {
     }
 }
 
-charType(); 
-console.log(lowerCase);
-console.log(upperCase);
-console.log(numeric);
-console.log(special);
+// Generate password with the chosen criteria
+var generatePassword = function() {
+    // gathering password criteria
+    var length = askLength();
+    charType();
+
+    // possible character combinations
+    var lowerOnly = "abcdefghijklmnopqrstuvwxyz";
+    var upperOnly = lowerOnly.toUpperCase();
+    var number = "0123456789";
+    var special = "!@#$%^&*()-_+=[]{};':/?><.,~";
+    var lowerUpper = lowerOnly + upperOnly;
+    var lowNum = lowerOnly + number;
+    var lowSpec = lowerOnly + special;
+    var upNum = upperOnly + number;
+    var upSpec = upperOnly + special;
+    var numSpec = number + special;
+    var lowUpNum = lowerUpper + number;
+    var lowUpSpec = lowerUpper + special;
+    var upNumSpec = upperOnly + number + special;
+    var lowNumSpec = lowerOnly + number + special;
+    var all = lowerOnly + upperOnly + number + special;
+    var password = "";
+
+    console.log(lowerCase, upperCase, numeric, specialChar);
+
+    // lower case only
+    if (lowerCase && !upperCase && !numeric && !specialChar) {
+        for (i = 0, n = lowerOnly.length; i < length; i++) {
+            password += lowerOnly.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // upper case only
+    else if (!lowerCase && upperCase && !numeric && !specialChar) {
+        for (i = 0, n = upperOnly.length; i < length; i++) {
+            password += upperOnly.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // numeric only
+    else if (!lowerCase && !upperCase && numeric && !specialChar) {
+        for (i = 0, n = number.length; i < length; i++) {
+            password += number.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // special characters only
+    else if (!lowerCase && !upperCase && !numeric && specialChar) {
+        for (i = 0, n = special.length; i < length; i++) {
+            password += special.charAt(Math.floor(Math.random()*n));
+        }
+    }
+    // lower case and upper case
+    else if (lowerCase && upperCase && !numeric && !specialChar) {
+        for (i = 0, n = lowerUpper.length; i < length; i++) {
+            password += lowerUpper.charAt(Math.floor(Math.random()*n));
+            console.log(password);
+        }
+    }
+
+
+    // reset for next password
+    lowerCase = false;
+    upperCase = false;
+    numeric = false;
+    specialChar = false;
+
+    return password;
+}
+
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
@@ -84,7 +146,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
