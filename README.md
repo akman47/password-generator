@@ -1,7 +1,7 @@
 # Password Generator
 
 ## Purpose
-An application that randomly generates a password to meet certain criteria
+An application that generates a random password based on user-selected criteria
 
 ## Built With
 * HTML
@@ -10,6 +10,8 @@ An application that randomly generates a password to meet certain criteria
 
 ## Website
 https://akman47.github.io/password-generator
+
+The following image demonstrates the application's functionality:
 ![password generator website with a generate password button](./assets/images/password-generator.png)
 
 ## Criteria
