@@ -81,29 +81,34 @@ var generatePassword = function() {
     var number = "0123456789";
     var special = "!@#$%^&*()-_+=[]{};':/?><.,~";
     var password = "";
-    var charSet = "";
     
-    if (lowerCase){
-        charSet += lowerOnly;
-    }
-
-    if (upperCase){
-        charSet += upperOnly;
-    }
-
-    if (numeric) {
-        charSet += number;
-    }
-    
-    if (specialChar) {
-        charSet += special;
-    }
-
-    for (i = 0, n = charSet.length; i < length; i++) {
-        password += charSet.charAt(Math.floor(Math.random()*n));
-    };
-
     console.log(lowerCase, upperCase, numeric, specialChar);
+
+    while (password.length < length) {
+        if (lowerCase){
+            password += lowerOnly.charAt(Math.floor(Math.random()*lowerOnly.length));
+        }
+
+        if (upperCase){
+            password += upperOnly.charAt(Math.floor(Math.random()*upperOnly.length));
+        }
+
+        if (numeric) {
+            password += number.charAt(Math.floor(Math.random()*number.length));
+        }
+    
+        if (specialChar) {
+            password += special.charAt(Math.floor(Math.random()*special.length));
+        }
+    }
+    console.log("password", password, password.length);
+
+    // To ensure password is the proper length
+    var newPassword = "";
+    for (i = 0; i < length; i++) {
+        newPassword += password.charAt(i);
+        console.log("new", newPassword, newPassword.length);
+    };
 
     // reset for next password
     lowerCase = false;
@@ -111,7 +116,7 @@ var generatePassword = function() {
     numeric = false;
     specialChar = false;
 
-    return password;
+    return newPassword;
 }
 
 // Get references to the #generate element
